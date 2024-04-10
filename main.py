@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request  # imported flask
 from sqlalchemy import create_engine, text
 
-c_str = "mysql://root:S9e3r2e0n0a3!@localhost/canvas2"
+c_str = "mysql://root:#Keepurheadup:0@localhost/canvas2"
 engine = create_engine(c_str, echo=True)
 connection = engine.connect()
 
