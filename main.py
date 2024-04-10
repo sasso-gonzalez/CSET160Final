@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request  # imported flask
 from sqlalchemy import create_engine, text
 
-c_str = "mysql://root:S9e3r2e0n0a3!@localhost/canvas2_0"
+c_str = "mysql://root:MySQL@localhost/canvas2_0"
 engine = create_engine(c_str, echo=True)
 connection = engine.connect()
 
 app = Flask(__name__)
+
 
 
 @app.route('/')
@@ -64,7 +65,7 @@ def manageForm():
 
 @app.route('/management', methods=['POST'])
 def deleteForm():
-    delete = connection.execute(text('DELETE FROM TESTS where TEST_ID = (:TEST_ID)'), request.form)
+    connection.execute(text('DELETE FROM TESTS where TEST_ID = (:TEST_ID)'), request.form)
     connection.commit()  # gives a layer of protection when someone submits a form or info to the db
     return render_template('managetests.html')
 
