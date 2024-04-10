@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request  # imported flask
 from sqlalchemy import create_engine, text
 
-c_str = "mysql://root:S9e3r2e0n0a3!@localhost/canvas2"
+c_str = "mysql://root:S9e3r2e0n0a3!@localhost/canvas2_0"
 engine = create_engine(c_str, echo=True)
 connection = engine.connect()
 
@@ -35,6 +35,8 @@ def searchAcc():  # table
 @app.route('/register', methods=['GET'])
 def regisForm():
     return render_template('register.html')
+
+
 @app.route('/register', methods=['POST'])
 def registered():
     connection.execute(text('INSERT INTO USER VALUES (:id, :name, :type, :username, :password)'), request.form)
@@ -47,22 +49,24 @@ def loginForm():
     return render_template('login.html')
 
 
-# TRYING TO GET THE MANAGETESTS.HTML TO WORK
+@app.route('/management', methods=['GET'])
+def get_tests():
+    all_tests = connection.execute(
+        text("select * from TESTS")).all()  # .all() is just for retrieving/getting all the data
+    print(all_tests)
+    return render_template('managetests.html', management=all_tests)
+
+
 @app.route('/management', methods=['GET'])
 def manageForm():
     return render_template('managetests.html')
-# @app.route('/management', methods=['POST'])
-# def manageForm():
-#     edit = request.form("username")
-#     if edit == ""
-#
-#     return redirect()
 
 
-# @app.route('/management', methods=['POST'])
-# def getman():
-#
-#     return render_template('managetests.html')
+@app.route('/management', methods=['POST'])
+def deleteForm():
+    delete = connection.execute(text('DELETE FROM TESTS where TEST_ID = (:TEST_ID)'), request.form)
+    connection.commit()  # gives a layer of protection when someone submits a form or info to the db
+    return render_template('managetests.html')
 
 
 if __name__ == '__main__':

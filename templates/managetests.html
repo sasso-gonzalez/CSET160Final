@@ -31,11 +31,34 @@
 
 {% extends 'base.html'%}
 {% block body %}
-<div class="body">
+<!--<div class="body">-->
+<!--        <form action="/management" method="POST">-->
+<!--            <h1>Enter Edit, Create, or Delete below:</h1>-->
+<!--            <input type="text" name="manage" placeholder="Ex: Edit" id="ugh1" class="input_field"> <br>-->
+<!--            <input type="submit" value="Submit" class="input_submit">-->
+<!--        </form>-->
+<!--    </div>-->
+          <ul class="barItem">
+            <li style="padding: 5px"><a href="/create">Create</a></li>
+            <li style="padding: 5px"><a href="/edit">Edit</a></li>
+          </ul>
+
+    <div class="body">
         <form action="/management" method="POST">
-            <h1>Enter Edit, Create, or Delete below:</h1>
-            <input type="text" name="manage" placeholder="Ex: Edit" id="ugh1" class="input_field"> <br>
-            <input type="submit" value="Submit" class="input_submit" onsubmit="edit()">
+            <h1>Enter ID to delete test:</h1>-->
+            <input type="text" name="TEST_ID" placeholder="Type ID of Test:" class="input_field"> <br>
+            <input type="submit" value="Submit" class="input_submit">
         </form>
     </div>
+
+    {% for i in management%}
+        <ul>
+            <li>TEST_ID:{{i[0]}}</li>
+            <ul>
+                <li>TEST_NAME:{{i[1]}}</li>
+                <li>AMOUNT OF STUDENT WHO'VE TAKEN TEST:{{i[2]}}</li>
+                <li>TEACHER IN CHARGE (ID):{{i[3]}}</li>
+            </ul>
+        </ul>
+    {% endfor %}
 {% endblock %}
