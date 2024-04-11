@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect  # imported flask
 from sqlalchemy import create_engine, text
 
 
-c_str = "mysql://root:MySQL@localhost/canvas2_0"
-
+c_str = "mysql://root:MySQL8090V11@localhost/canvas2_0"
 engine = create_engine(c_str, echo=True)
 connection = engine.connect()
 
@@ -69,13 +68,16 @@ def deleteForm():
     return redirect('/management')
 
 
+# --------------------------- START OF CREATE.HTML ---------------------------
+
+
+
 @app.route('/create', methods=['GET'])
 def createForm():
-    all_tests = connection.execute(text("select * from TESTS")).all()
-    return render_template('create.html', management=all_tests)
 
 
-# --------------------------- START OF CREATE.HTML ---------------------------
+    return render_template('create.html')
+
 
 
 
