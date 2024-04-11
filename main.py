@@ -9,6 +9,7 @@ connection = engine.connect()
 app = Flask(__name__)
 
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -67,13 +68,16 @@ def deleteForm():
     return redirect('/management')
 
 
+# --------------------------- START OF CREATE.HTML ---------------------------
+
+
+
 @app.route('/create', methods=['GET'])
 def createForm():
-    all_tests = connection.execute(text("select * from TESTS")).all()
-    return render_template('create.html', management=all_tests)
 
 
-# --------------------------- START OF CREATE.HTML ---------------------------
+    return render_template('create.html')
+
 
 
 
