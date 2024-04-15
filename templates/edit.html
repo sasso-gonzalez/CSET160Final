@@ -1,1 +1,71 @@
-{ % extends 'base.html' %}
+
+<!-- inline css goes at the very top with jinja-->
+<style>
+    .body form{
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        padding: 20px
+    }
+    .body{
+        text-align:center
+    }
+    .input_field {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .input_submit {
+      width: 100%;
+      background-color: #51919f;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .input_submit:hover {
+      background-color: #48828e;
+    }
+</style>
+
+{% extends 'base.html'%}
+    {% block body %}
+        <div class="body">
+
+            <form action="/edit/{{edit[0][0]}}" method="POST">
+                <h1>TEST DETAILS:</h1>
+                <input type="number" name="TEST_ID" class="input_field" value ='{{edit[0][0]}}'> <br> <!-- unchangeable --> <!-- readonly="readonly"??-->
+                <input type="text" name="TEST_NAME" placeholder="Test Name:" class="input_field" value ='{{edit[0][1]}}'> <br> <!-- want to be able to change name -->
+
+                    <input type="number" name="Q_ID" class="input_field" value ='{{edit[0][2]}}'>
+                    <input type="number" name="QUEST_NUM"  class="input_field" value ='{{edit[0][3]}}'> <br>
+                    <input type="text" name="QUESTION" placeholder="Question" class="input_field" value ='{{edit[0][4]}}'> <br>
+                    <input type="text" name="ACT_ANSWER" placeholder="Question Answer" class="input_field" value ='{{edit[0][5]}}'> <br>
+
+                <input type="submit" value="Submit" class="input_submit">
+            </form>
+        </div>
+
+            <ul>
+                <li>TEST_ID:{{edit[0][0]}}</li>
+                <li>TEST NAME:{{edit[0][1]}}</li>
+            </ul>
+        {% for i in edit%}
+
+                <ul>
+                    <li>Question ID:{{i[2]}}</li>
+                    <li>Question number:{{i[3]}}</li>
+                    <li>Question: {{i[4]}}</li>
+                    <li>Actual Answer: {{i[5]}}</li>
+                </ul>
+        {% endfor %}
+
+    {% endblock %}
