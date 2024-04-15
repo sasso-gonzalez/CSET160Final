@@ -31,9 +31,9 @@
 {% extends 'base.html'%}}
 {% block body %}
     <div class="body">
-        <form action="/acc_display" method='GET' method ='POST'>
+        <form action="/acc_display" method='GET'>
             <input type="text" name="type" placeholder="Type of Account:" class="input_field"> <br>
-            <input type="submit" value="Submit" class="input_submit" onclick="editing()">
+            <input type="submit" value="Submit" class="input_submit">
         </form>
     </div>
 
@@ -41,7 +41,7 @@
         <ul>
             <li>U_ID:{{i[0]}}</li>
             <ul>
-                <li>USER_NAME:{{i[1]}}</li>
+                <li>NAME:{{i[1]}}</li>
                 <li>USER_TYPE:{{i[2]}}</li>
                 <li>USERNAME:{{i[3]}}</li>
                 <li>PASSWORD:{{i[4]}}</li>
