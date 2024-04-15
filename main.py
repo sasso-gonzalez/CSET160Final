@@ -66,7 +66,7 @@ def deleteForm():
     connection.execute(text('DELETE FROM STU_DETAILS where TEST_ID = (:TEST_ID)'), request.form)
     connection.execute(text('UPDATE TEST_DETAILS SET TEST_ID = NULL WHERE TEST_ID = (:TEST_ID)'), request.form)
     connection.execute(text('DELETE FROM TESTS where TEST_ID = (:TEST_ID)'), request.form)
-    connection.commit()  
+    connection.commit()
     return redirect('/management')
 
 
