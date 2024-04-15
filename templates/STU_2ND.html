@@ -1,7 +1,13 @@
 <!-- inline css goes at the very top with jinja-->
 <style>
+    .body form{
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        padding: 20px
+    }
     .body{
-        margin: auto;
+        text-align:center
     }
     .input_field {
       width: 100%;
@@ -28,25 +34,20 @@
       background-color: #48828e;
     }
 </style>
-{% extends 'base.html'%}}
-{% block body %}
-    <div class="body">
-        <form action="/acc_display" method='POST'>
-            <input type="text" name="type" placeholder="Type of Account:" class="input_field"> <br>
-            <input type="submit" value="Submit" class="input_submit">
-        </form>
-    </div>
 
-    {% for i in acc_display%}
+{% extends 'base.html'%}
+{% block body %}
+<h2 style = 'text-align: center'> {{STU_2ND[0][1]}} (TEST ID: {{STU_2ND[0][2]}})</h2>
+
+    {% for i in STU_2ND%}
         <ul>
-            <li>U_ID:{{i[0]}}</li>
+            <li>QUESTION_ID: {{i[3]}}</li>
             <ul>
-                <li>NAME:{{i[1]}}</li>
-                <li>USER_TYPE:{{i[2]}}</li>
-                <li>USERNAME:{{i[3]}}</li>
-                <li>PASSWORD:{{i[4]}}</li>
+                <li>{{i[4]}}.) {{i[5]}}</li>
+                <li>RESPONSE: {{i[6]}}</li>
             </ul>
         </ul>
     {% endfor %}
+
 
 {% endblock %}
