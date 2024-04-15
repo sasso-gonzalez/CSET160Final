@@ -1,7 +1,13 @@
 <!-- inline css goes at the very top with jinja-->
 <style>
+    .body form{
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        padding: 20px
+    }
     .body{
-        margin: auto;
+        text-align:center
     }
     .input_field {
       width: 100%;
@@ -31,29 +37,24 @@
 
 {% extends 'base.html'%}
 {% block body %}
-          <ul class="barItem">
-            <li style="padding: 5px"><a href="/create">Create</a></li>
-<!--            <li style="padding: 5px"><a href="/edit">Edit</a></li>-->
-          </ul>
-
     <div class="body">
-        <form action="/management" method="POST">
-            <h1>Enter TEST ID to delete test:</h1>
-            <input type="text" name="TEST_ID" placeholder="Type ID of Test:" class="input_field"> <br>
+        <H1>Tests taken by Students</H1>
+        <form action="/tests_taken" method='POST'>
+            <input type="text" name="TEACH_ID" placeholder="Find tests by Teacher ID" class="input_field"> <br>
             <input type="submit" value="Submit" class="input_submit">
         </form>
+
     </div>
 
-    {% for i in management%}
+    {% for i in tests_taken%}
         <ul>
-            <li><a href="/edit/{{i[0]}}">TEST_ID:{{i[0]}}</a></li>
-            <ul>
-                <li>TEST_NAME: {{i[1]}}</li>
-                <li>AMOUNT OF STUDENT WHO'VE TAKEN TEST: {{i[2]}}</li>
-                <li>MADE BY: TEACHER({{i[3]}})</li>
-            </ul>
+            <li><a href="/STU_tests/{{i[0]}}">TEST_NAME: {{i[1]}}</a></li>
+            <li>MADE BY: TEACHER ({{i[3]}})</li>
+            <li>AMOUNT OF STUDENTS WHO'VE TAKEN TEST: {{i[2]}}</li>
         </ul>
     {% endfor %}
 
 
+
 {% endblock %}
+
