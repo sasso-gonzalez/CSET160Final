@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect  # imported flask
+from flask import Flask, render_template, request, redirect, flash  # imported flask
 from sqlalchemy import create_engine, text
 
 
-c_str = "mysql://root:MySQL8090V11@localhost/canvas2_0"
+c_str = "mysql://root:MySQL8090@localhost/canvas2_0"
 engine = create_engine(c_str, echo=True)
 connection = engine.connect()
 
@@ -43,7 +43,8 @@ def regisForm():
 def registered():
     connection.execute(text('INSERT INTO USER VALUES (:id, :name, :type, :username, :password)'), request.form)
     connection.commit()  # gives a layer of protection when someone submits a form or info to the db
-    return render_template('register.html')
+    # I changed the return so that you will be directed to the login page after registering - Vee
+    return render_template('login.html')
 
 
 @app.route('/login', methods=['GET'])
@@ -53,71 +54,44 @@ def loginForm():
 
 @app.route('/management', methods=['GET'])
 def get_tests():
-    all_tests = connection.execute(text("select * from TESTS")).all()  # .all() is just for retrieving/getting all the data
+    all_tests = connection.execute(text("select * from TESTS")).all()  # .all() is just for retrieving/getting all the
+    # data
     print(all_tests)
     return render_template('managetests.html', management=all_tests)
 
 
 @app.route('/management', methods=['POST'])
+# delete function
 def deleteForm():
     connection.execute(text('DELETE FROM TEST_FORM where TEST_ID = (:TEST_ID)'), request.form)
     connection.execute(text('DELETE FROM STU_DETAILS where TEST_ID = (:TEST_ID)'), request.form)
     connection.execute(text('UPDATE TEST_DETAILS SET TEST_ID = NULL WHERE TEST_ID = (:TEST_ID)'), request.form)
     connection.execute(text('DELETE FROM TESTS where TEST_ID = (:TEST_ID)'), request.form)
-    connection.commit()  # gives a layer of protection when someone submits a form or info to the db
+    connection.commit()
     return redirect('/management')
 
 
 # --------------------------- START OF CREATE.HTML ---------------------------
-
-
-
 @app.route('/create', methods=['GET'])
 def createForm():
-
-
     return render_template('create.html')
 
 
 
+@app.route('/create', methods=['POST'])
+def insertForm():
+    connection.execute(text('INSERT INTO TESTS VALUES (:TEST_ID, :TEST_NAME, :AMT_OF_STU, :TEACH_ID)'), request.form)
+    connection.commit()
+    return render_template('createQuestions.html')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@app.route('/createQuestions', methods=['POST', 'GET'])
+def showCreate():
+    # values that are entered from the browser will show up on the SQL database
+    connection.execute(text('INSERT INTO TEST_FORM (Q_ID, QUEST_NUM, QUESTION, ACT_ANSWER, TEST_ID) '
+                            'VALUES (:Q_ID, :QUEST_NUM, :QUESTION, :ACT_ANSWER, :TEST_ID)'), request.form)
+    connection.commit()
+    return render_template('createQuestions.html')
 # --------------------------- END OF CREATE.HTML ---------------------------
 
 
