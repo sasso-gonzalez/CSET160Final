@@ -9,6 +9,7 @@ connection = engine.connect()
 app = Flask(__name__)
 
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -76,6 +77,7 @@ def createForm():
     return render_template('create.html')
 
 
+
 @app.route('/create', methods=['POST'])
 def insertForm():
     connection.execute(text('INSERT INTO TESTS VALUES (:TEST_ID, :TEST_NAME, :AMT_OF_STU, :TEACH_ID)'), request.form)
@@ -90,7 +92,6 @@ def showCreate():
                             'VALUES (:Q_ID, :QUEST_NUM, :QUESTION, :ACT_ANSWER, :TEST_ID)'), request.form)
     connection.commit()
     return render_template('createQuestions.html')
-
 # --------------------------- END OF CREATE.HTML ---------------------------
 
 
